@@ -1,11 +1,23 @@
 <div class="jumbotron">
         <div style="display: inline">
         <h1>Your new url is...</h1>
-        <input type="text" value="ritly/rit/<%=@new_url%>">
+        <input type="text" value="/ritly/go/<%=@page.short_url%>">
+        <h3>Takes you to...</h3>
+        <p><%=@page.entered_url %></p>
         </div>
         <p>
         </br>
-          <a class="btn btn-lg btn-primary" href="/ritly/show" role="button">New Rit&raquo;</a>
+            <%= form_tag ("/ritly/update/#{@page.short_url}"), method: "patch" do %>
+            <%= submit_tag "New Rit", :class => "btn btn-lg btn-primary" %>
+        </br></br>
+            <%= text_field_tag :url, nil, placeholder: "Or type a custom Rit!" %>
+            <% end %>
         </p>
     </form>
       </div>
+
+      
+      <% @list.each do |link| %>
+
+      <%=link.entered_url%> - <%=link.short_url%> - <%=link.custom_url%> - <%=link.visited%></br>
+      <% end %>

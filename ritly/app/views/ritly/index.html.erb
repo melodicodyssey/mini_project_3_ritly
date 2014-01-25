@@ -2,10 +2,12 @@
         <h1>Welcome to Ritly!</h1>
         <p>With Ritly, you can easily compress the character count of your favorite website URLs!  Type/paste a URL into the Search bar.</p>
         <p>
-        	<form action="/ritly/show" method="post">
-        	<%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-        	<input type="text" name="search" placeholder="URL">
-          <a class="btn btn-lg btn-primary" href="/ritly/show" role="button">Rit! &raquo;</a>
+
+          <%= form_tag ("/ritly/create"), method: "post" do %>
+            <%= text_field_tag (:url) %>
+            <%= submit_tag "Rit!", :class => "btn btn-lg btn-primary" %>
+        <% end %>
+
         </p>
     </form>
       </div>

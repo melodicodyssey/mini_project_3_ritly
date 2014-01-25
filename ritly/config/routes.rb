@@ -2,11 +2,14 @@ Ritly::Application.routes.draw do
 
   root to: 'ritly#index'
 
-  get '/ritly', to: 'ritly#index'
+  get 'ritly', to: 'ritly#index'
 
-  get '/ritly/:search', to: 'ritly#show'
+  post 'ritly/create', to: 'ritly#create'
 
-  post 'ritly/show', to: 'ritly#show'
+  get 'ritly/show/:url', to: 'ritly#show', as: :show
 
+  patch 'ritly/update/:url', to: 'ritly#update'
+
+  get 'ritly/go/:url', to: 'ritly#go'
 
 end
