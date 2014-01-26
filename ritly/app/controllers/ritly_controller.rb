@@ -10,10 +10,9 @@ class RitlyController < ApplicationController
 			flash[:in_use] = "The URL you entered is already in use"
 			redirect_to index_path
 		else 
-			shortened_url = SecureRandom.urlsafe_base64(3)
-			Rit.create_new(given_url, shortened_url).fix_url
-
-			redirect_to show_path(shortened_url)
+			new_entry = Rit.create_new(given_url)
+			binding.pry
+			redirect_to show_path(new_entry.short_url)
 		end
 	end
 
@@ -21,11 +20,13 @@ class RitlyController < ApplicationController
 		shortened_url = params[:url]
 		@list = Rit.all
 		@page = Rit.find_by(short_url: shortened_url)
+		@page.fix_url
 	end
 
 	def go
 		rit = params[:url]
 		link = Rit.find_url(rit)
+		link.add_one
 		redirect_to "#{link.entered_url}"
 	end
 
