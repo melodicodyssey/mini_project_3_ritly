@@ -1,19 +1,24 @@
 class RitlyController < ApplicationController
 
 	def index
+		@table = Rit.all
 	end
 
-
 	def create
-		given_url = params[:url]
-		shortened_url = SecureRandom.urlsafe_base64(3)
-		Rit.create(entered_url: given_url, short_url: shortened_url, visited: 0)
-		redirect_to "/ritly/show/#{shortened_url}"
+		given_url = params[:orig_url]
+		if Rit.url_taken?(given_url)
+			@error = "The URL you entered is not available"
+			redirect_to index_path
+		else 
+			shortened_url = SecureRandom.urlsafe_base64(3)
+			Rit.create_new(given_url, shortened_url)
+			redirect_to show_path(shortened_url)
+		end
 	end
 
 	def show
-		@list = Rit.all
 		shortened_url = params[:url]
+		@list = Rit.all
 		@page = Rit.find_by(short_url: shortened_url)
 	end
 
@@ -25,11 +30,19 @@ class RitlyController < ApplicationController
 
 	# def update
 	# 	shortened_url = params[:url]
-	# 	page = Rit.find_by(short_url: shortened_url)
-	# 	new_url = SecureRandom.urlsafe_base64(3)
-	# 	page.update_attributes(short_url: new_url)
-	# 	redirect_to show_path(shortened_url)
+	# 	custom = params[:cust_url]
+	# 	link_page = Rit.find_by(short_url: shortened_url)
+	# 	if link_page.has_custom?
+	# 		new_url = SecureRandom.urlsafe_base64(3)
+	# 		link_page.update_attributes(short_url: new_url)
+	# 		redirect_to show_path(new_url)
+	# 	else
+	# 		link_page.update_attributes(custom_url: custom)
+	# 		redirect_to show_path(shortened_url)
+	# 	end
 	# end
+
+	# model method: has_url?  check to see if url exists.  if so return true
 
 
 end

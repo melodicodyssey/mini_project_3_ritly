@@ -2,7 +2,7 @@ Ritly::Application.routes.draw do
 
   root to: 'ritly#index'
 
-  get 'ritly', to: 'ritly#index'
+  get 'ritly', to: 'ritly#index', as: :index
 
   post 'ritly/create', to: 'ritly#create'
 

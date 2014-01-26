@@ -1,23 +1,39 @@
 <div class="jumbotron">
-        <div style="display: inline">
-        <h1>Your new url is...</h1>
-        <input type="text" value="/ritly/go/<%=@page.short_url%>">
-        <h3>Takes you to...</h3>
-        <p><%=@page.entered_url %></p>
-        </div>
-        <p>
-        </br>
-            <%= form_tag ("/ritly/update/#{@page.short_url}"), method: "patch" do %>
-            <%= submit_tag "New Rit", :class => "btn btn-lg btn-primary" %>
-        </br></br>
-            <%= text_field_tag :url, nil, placeholder: "Or type a custom Rit!" %>
-            <% end %>
-        </p>
-    </form>
-      </div>
+  <div style="display: inline">
+    <h1>Your new url is...</h1>
+    <input type="text" value="/ritly/go/<%=@page.short_url%>">
+    <h3>Takes you to...</h3>
+    <p><%=@page.entered_url %></p>
+    <iframe src="http://www.google.com"></iframe>
+  </div>
 
-      
-      <% @list.each do |link| %>
+  <p>
+  </br>
+    <%= form_tag ("/ritly/update/#{@page.short_url}"), method: "patch" do %>
+      <%= submit_tag "New Rit", :class => "btn btn-lg btn-primary" %>
+      </br></br>
+      <%= text_field_tag :cust_url, nil, placeholder: "Or type a custom Rit!" %>
+    <% end %>
+  </p>
+</div>
 
-      <%=link.entered_url%> - <%=link.short_url%> - <%=link.custom_url%> - <%=link.visited%></br>
+<table border="1">
+  <% @list.each do |link| %>
+    <tr>
+      <td>
+        <a href="/ritly/show/<%=link.short_url%>">
+          <%=link.entered_url%>
+        </a>
+      </td>
+      <td>
+        <a href="/ritly/show/<%=link.short_url%>">
+          <%=link.short_url%>
+        </a>
+      </td>
+      <% if link.has_custom?%>
+        <td><%=link.custom_url%></td>
       <% end %>
+      <td><%=link.visited%></td>
+    </tr>
+  <% end %>
+</table>
