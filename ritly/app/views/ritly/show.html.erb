@@ -5,7 +5,7 @@
     <input type="text" value="localhost:3000/ritly/go/<%=@page.short_url%>" style="width: 300px">
     <h3>Takes you to...</h3>
     <p><%=@page.entered_url %></p>
-    <iframe src="http://www.reddit.com"></iframe>
+    <iframe src="http://<%=@page.entered_url%>"></iframe>
   </div>
 
   <p>
@@ -19,35 +19,4 @@
 </div>
 </div>
 
-<center>
-<table class="table table-striped" style="width: 50%">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Link URL</th>
-      <th>Rit'd URL</th>
-      <th>Custom URL</th>
-      <th>Last Updated</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @list.each do |link| %>
-    <tr>
-      <td><%= link.id %></td>
-      <td>
-        <a href="/ritly/show/<%=link.short_url%>">
-          <%=link.entered_url%>
-        </a>
-      </td>
-      <td>
-        <a href="/ritly/show/<%=link.short_url%>">
-          <%=link.short_url%>
-        </a>
-      </td>
-      <td><%=link.custom_url%></td>
-      <td><%=link.visited%></td>
-    </tr>
-  <% end %>
-</tbody>
-</table>
-</center>
+<%= render partial: "links_table" %>

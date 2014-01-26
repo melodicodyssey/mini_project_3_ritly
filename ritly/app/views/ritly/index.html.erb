@@ -1,3 +1,4 @@
+<div class="container">
 <div class="jumbotron">
     <h1>Welcome to Ritly!</h1>
     <p>With Ritly, you can easily compress the character count of your favorite website URLs!  Type/paste a URL into the Search bar.</p>
@@ -11,7 +12,9 @@
     <p style="color: red"><%=flash[:in_use] %></p>
     <% end %>
 </div>
+</div>
 
 <div class="container">
 </div>
 
+<%= render partial: "links_table" %>

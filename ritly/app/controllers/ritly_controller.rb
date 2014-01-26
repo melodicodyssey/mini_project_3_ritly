@@ -11,7 +11,8 @@ class RitlyController < ApplicationController
 			redirect_to index_path
 		else 
 			shortened_url = SecureRandom.urlsafe_base64(3)
-			Rit.create_new(given_url, shortened_url)
+			Rit.create_new(given_url, shortened_url).fix_url
+
 			redirect_to show_path(shortened_url)
 		end
 	end

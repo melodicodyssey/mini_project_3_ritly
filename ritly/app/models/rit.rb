@@ -20,4 +20,12 @@ class Rit < ActiveRecord::Base
 		end
 	end
 
+	def fix_url
+		gsub1 = /^http:\/\//
+		gsub2 = /^https:\/\//
+		if !self.entered_url.match(gsub1) || !self.entered_url.match(gsub2)
+			self.update_attributes(entered_url: "http://#{self.entered_url}")
+		end
+	end
+
 end

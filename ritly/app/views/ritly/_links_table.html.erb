@@ -1,0 +1,32 @@
+<center>
+<table class="table table-striped" style="width: 50%">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Link URL</th>
+      <th>Rit'd URL</th>
+      <th>Custom URL</th>
+      <th>Visited</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @list.each do |link| %>
+    <tr>
+      <td><%= link.id %></td>
+      <td>
+        <a href="/ritly/show/<%=link.short_url%>">
+          <%=link.entered_url%>
+        </a>
+      </td>
+      <td>
+        <a href="/ritly/show/<%=link.short_url%>">
+          <%=link.short_url%>
+        </a>
+      </td>
+      <td><%=link.custom_url%></td>
+      <td><%=link.visited%></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+</center>
