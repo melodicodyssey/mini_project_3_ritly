@@ -7,8 +7,11 @@
         <%= submit_tag "Rit!", :class => "btn btn-lg btn-primary" %>
     <% end %>
     </p>
-    <p style="color: red"><%= @error %></p>
+    <% if flash[:in_use] %>
+    <p style="color: red"><%=flash[:in_use] %></p>
+    <% end %>
 </div>
 
 <div class="container">
 </div>
+

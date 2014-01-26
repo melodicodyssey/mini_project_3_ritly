@@ -1,13 +1,13 @@
 class RitlyController < ApplicationController
 
 	def index
-		@table = Rit.all
+		@list = Rit.all
 	end
 
 	def create
 		given_url = params[:orig_url]
 		if Rit.url_taken?(given_url)
-			@error = "The URL you entered is not available"
+			flash[:in_use] = "The URL you entered is already in use"
 			redirect_to index_path
 		else 
 			shortened_url = SecureRandom.urlsafe_base64(3)
@@ -24,28 +24,32 @@ class RitlyController < ApplicationController
 
 	def go
 		rit = params[:url]
-		link = Rit.find_by(short_url:rit)
-		redirect_to "https://#{link.entered_url}"
+		link = Rit.find_url(rit)
+		redirect_to "#{link.entered_url}"
 	end
 
-	# def update
-	# 	shortened_url = params[:url]
-	# 	custom = params[:cust_url]
-	# 	link_page = Rit.find_by(short_url: shortened_url)
-	# 	if link_page.has_custom?
-	# 		new_url = SecureRandom.urlsafe_base64(3)
-	# 		link_page.update_attributes(short_url: new_url)
-	# 		redirect_to show_path(new_url)
-	# 	else
-	# 		link_page.update_attributes(custom_url: custom)
-	# 		redirect_to show_path(shortened_url)
-	# 	end
-	# end
+	def update
+		shortened_url = params[:url]
+		custom = params[:cust_url]
+		link_page = Rit.find_by(short_url: shortened_url)
+		if custom == ""
+			new_url = SecureRandom.urlsafe_base64(3)
+			link_page.update_attributes(short_url: new_url)
+			redirect_to show_path(new_url)
+		else
+			link_page.update_attributes(custom_url: custom)
+			redirect_to show_path(shortened_url)
+		end
+	end
 
 	# model method: has_url?  check to see if url exists.  if so return true
 
-
 end
+
+#render partial: "links_table"
+
+
+# <%= localize(link.created_at, format: :long)%>
 
 # post to CREATE first, then redirect to /SHOW/:url
 

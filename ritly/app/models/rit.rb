@@ -12,4 +12,12 @@ class Rit < ActiveRecord::Base
 		!self.custom_url == nil
 	end
 
+	def self.find_url url
+		if !find_by(short_url: url).nil?
+			return find_by(short_url: url)
+		elsif !find_by(custom_url: url).nil?
+			return find_by(custom_url: url)
+		end
+	end
+
 end
