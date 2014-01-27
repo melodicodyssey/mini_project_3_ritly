@@ -1,11 +1,15 @@
 <div class="container">
 <div class="jumbotron">
   <div style="display: inline">
-    <h1>Your new url is...</h1>
+    <h1>Your Ritly url is...</h1>
     <input type="text" value="localhost:3000/ritly/go/<%=@page.short_url%>" style="width: 300px">
+    <% if @page.has_custom? %>
+  </br>
+    <input type="text" value="localhost:3000/ritly/go/<%=@page.custom_url%>" style="width: 300px">
+    <% end %>
     <h3>Takes you to...</h3>
     <p><%=@page.entered_url %></p>
-    <iframe src="http://<%=@page.entered_url%>"></iframe>
+    <iframe src="<%=@page.entered_url%>"></iframe>
   </div>
 
   <p>
@@ -18,13 +22,5 @@
   </p>
 </div>
 </div>
-
-<%= form_tag (go_path(@page.short_url)), method: "get" do %>
-  <% submit_tag "GO!" %>
-<%end%>
-
-<a href="/ritly/go/<%=@page.short_url%>">localhost:3000/ritly/go/<%=@page.short_url%></a>
-
-<a href="/ritly/">HOME</a>
 
 <%= render partial: "links_table" %>

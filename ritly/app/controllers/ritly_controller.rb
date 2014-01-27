@@ -13,6 +13,7 @@ class RitlyController < ApplicationController
 			new_entry = Rit.create_new(given_url).fix_url
 			redirect_to show_path(new_entry.short_url)
 		end
+
 	end
 
 	def show
@@ -22,14 +23,15 @@ class RitlyController < ApplicationController
 	end
 
 	def go
-		rit = params[:url]
-		link = Rit.find_url(rit).add_one
+		url = params[:url]
+		link = Rit.find_url(url).add_one
 		redirect_to "#{link.entered_url}"
 	end
 
 	def update
-		shortened_url = params[:url], custom = params[:cust_url]
-		link = Rit.find_by(short_url: shortened_url).update(shortened_url, custom)
+		url = params[:url]
+		custom = params[:cust_url]
+		link = Rit.find_by(short_url: url).update(url, custom)
 		redirect_to show_path(link.short_url)
 	end
 
@@ -42,7 +44,6 @@ class RitlyController < ApplicationController
 
 end
 
-#render partial: "links_table"
 
 
 # <%= localize(link.created_at, format: :long)%>
