@@ -1,10 +1,10 @@
 <div class="container">
-<div class="jumbotron">
+<div class="jumbotron" style="background-color: rgba(250,250,250,10); color: black; border: 2px solid black">
     <h1>Welcome to Ritly!</h1>
-    <p>With Ritly, you can easily compress the character count of your favorite website URLs!  Type/paste a URL into the Search bar.</p>
+    <p>With Ritly, you can easily compress the character count of your favorite website URLs!  Type/paste a URL into the Search box below.</p>
     <p>
     <%= form_tag ("ritly/create"), method: "post" do %>
-        <%= text_field_tag (:orig_url) %>
+        <%= text_field_tag (:orig_url)%>
         <%= submit_tag "Rit!", :class => "btn btn-lg btn-primary" %>
     <% end %>
     </p>

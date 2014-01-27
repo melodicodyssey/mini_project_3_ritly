@@ -17,12 +17,12 @@
   <%= csrf_meta_tags %>
   </head>
 
-  <body>
+  <body style="background-color: rgba(230,230,230,8); color: white">
 
     <div class="container">
 
       <!-- Static navbar -->
-      <div class="navbar navbar-default" role="navigation">
+      <div class="navbar navbar-default" role="navigation" style="background-color: rgba(0,100,200,5); border-radius: 5px">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -30,13 +30,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/ritly">Ritly</a>
+          <a class="navbar-brand" href="/ritly" style="color: white">Ritly</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Links</a></li>
+            <li class="active" style="color: white">Links</li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Table <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white">Table <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <%= render partial: "links_table" %>
                 <!-- <li><a href="#">Action</a></li>
