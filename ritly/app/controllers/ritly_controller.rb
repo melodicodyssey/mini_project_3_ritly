@@ -10,8 +10,7 @@ class RitlyController < ApplicationController
 			flash[:in_use] = "The URL you entered is already in use"
 			redirect_to index_path
 		else 
-			new_entry = Rit.create_new(given_url)
-			binding.pry
+			new_entry = Rit.create_new(given_url).fix_url
 			redirect_to show_path(new_entry.short_url)
 		end
 	end
