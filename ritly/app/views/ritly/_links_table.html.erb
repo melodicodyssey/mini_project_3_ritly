@@ -25,6 +25,11 @@
       </td>
       <td><%=link.custom_url%></td>
       <td><%=link.visited%></td>
+      <td>
+        <%= form_tag (delete_path(link.id)), method: "delete" do %>
+          <% submit_tag "delete" %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </tbody>

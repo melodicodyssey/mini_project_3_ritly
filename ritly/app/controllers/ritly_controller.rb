@@ -18,32 +18,27 @@ class RitlyController < ApplicationController
 	def show
 		shortened_url = params[:url]
 		@list = Rit.all
-		@page = Rit.find_by(short_url: shortened_url)
-		@page.fix_url
+		@page = Rit.find_by(short_url: shortened_url).fix_url
 	end
 
 	def go
 		rit = params[:url]
-		link = Rit.find_url(rit)
-		link.add_one
+		link = Rit.find_url(rit).add_one
 		redirect_to "#{link.entered_url}"
 	end
 
 	def update
-		shortened_url = params[:url]
-		custom = params[:cust_url]
-		link_page = Rit.find_by(short_url: shortened_url)
-		if custom == ""
-			new_url = SecureRandom.urlsafe_base64(3)
-			link_page.update_attributes(short_url: new_url)
-			redirect_to show_path(new_url)
-		else
-			link_page.update_attributes(custom_url: custom)
-			redirect_to show_path(shortened_url)
-		end
+		shortened_url = params[:url], custom = params[:cust_url]
+		link = Rit.find_by(short_url: shortened_url).update(shortened_url, custom)
+		redirect_to show_path(link.short_url)
 	end
 
-	# model method: has_url?  check to see if url exists.  if so return true
+	def delete
+		id = params[:id]
+		link = Rit.find(id)
+		Rit.destroy(link)
+		redirect_to index_path
+	end
 
 end
 

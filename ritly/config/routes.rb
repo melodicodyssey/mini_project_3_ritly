@@ -10,6 +10,8 @@ Ritly::Application.routes.draw do
 
   patch 'ritly/update/:url', to: 'ritly#update'
 
-  get 'ritly/go/:url', to: 'ritly#go'
+  get 'ritly/go/:url', to: 'ritly#go', as: :go
+
+  delete 'ritly/delete/:id', to: 'ritly#delete', as: :delete
 
 end

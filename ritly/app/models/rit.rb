@@ -4,13 +4,13 @@ class Rit < ActiveRecord::Base
 		!find_by(entered_url: url).nil?
 	end
 
-	def self.create_new long
+	def self.create_new url
 		short = SecureRandom.urlsafe_base64(3)
-		create(entered_url: long, short_url: short, visited: 0)
+		create(entered_url: url, short_url: short, visited: 0)
 	end
 
 	def has_custom?
-		!self.custom_url == nil
+		self.custom_url != nil
 	end
 
 	def self.find_url url
@@ -32,6 +32,18 @@ class Rit < ActiveRecord::Base
 
 	def add_one
 		self.update_attributes(visited: visited+1)
+		return self
+	end
+
+	def update url, custom
+		if custom == ""
+			new_url = SecureRandom.urlsafe_base64(3)
+			self.update_attributes(short_url: new_url)
+			return self
+		else
+			self.update_attributes(custom_url: custom)
+			return self
+		end
 	end
 
 end

@@ -19,4 +19,12 @@
 </div>
 </div>
 
+<%= form_tag (go_path(@page.short_url)), method: "get" do %>
+  <% submit_tag "GO!" %>
+<%end%>
+
+<a href="/ritly/go/<%=@page.short_url%>">localhost:3000/ritly/go/<%=@page.short_url%></a>
+
+<a href="/ritly/">HOME</a>
+
 <%= render partial: "links_table" %>
